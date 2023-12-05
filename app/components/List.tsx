@@ -27,7 +27,7 @@ const List = () => {
     fetchProjects();
   }, []);
 
-  console.log("USER ID -> ", session?.user.id);
+  // console.log("USER ID -> ", session?.user.id);
 
   const handleVote = async (projectId: string) => {
     if (!session || !session.user.id) {

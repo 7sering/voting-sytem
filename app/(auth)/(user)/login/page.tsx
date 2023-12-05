@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { AiFillGoogleCircle } from "react-icons/ai";
 
 import { useForm } from "react-hook-form";
 
@@ -29,8 +30,11 @@ const LoginPage = () => {
         <h1 className="text-center pt-20 text-2xl ">Login your account</h1>
         <div className="flex items-center justify-center">
           <Link href="/api/auth/signin">
-            <button className="bg-blue-500 py-2 px-8 mt-3 hover:bg-blue-600">
-              Sign In With Google
+            <button className="bg-red-700 py-2 px-8 mt-3 hover:bg-green-600">
+              <div className="flex text-1xl gap-1">
+                <AiFillGoogleCircle size={30} />
+                <p className="text-1xl pl-2 pt-[3px]">Sign In With Google</p>
+              </div>
             </button>
           </Link>
         </div>
