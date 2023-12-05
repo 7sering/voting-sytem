@@ -29,14 +29,17 @@ const LoginPage = () => {
       <div className="container mx-auto">
         <h1 className="text-center pt-20 text-2xl ">Login your account</h1>
         <div className="flex items-center justify-center">
-          <Link href="/api/auth/signin">
-            <button className="bg-red-700 py-2 px-8 mt-3 hover:bg-green-600">
-              <div className="flex text-1xl gap-1">
-                <AiFillGoogleCircle size={30} />
-                <p className="text-1xl pl-2 pt-[3px]">Sign In With Google</p>
-              </div>
-            </button>
-          </Link>
+          {/* <Link href="/api/auth/signin"> */}
+          <button
+            className="bg-red-700 py-2 px-8 mt-3 hover:bg-green-600"
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+          >
+            <div className="flex text-1xl gap-1">
+              <AiFillGoogleCircle size={30} />
+              <p className="text-1xl pl-2 pt-[3px]">Sign In With Google</p>
+            </div>
+          </button>
+          {/* </Link> */}
         </div>
         <div className="flex items-center justify-center  pt-5">
           <form
