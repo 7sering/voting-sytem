@@ -3,12 +3,13 @@ import axios from "axios";
 
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const List = () => {
   const [projects, setProjects] = useState<any[]>([]);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const fetchProjects = async () => {
     try {
@@ -107,12 +108,25 @@ const List = () => {
                   </th>
                   <td className="px-6 py-4">{project.info.slice(0, 15)}...</td>
                   <td className="px-6 py-4">{project.voteCount}</td>
-                  <button
-                    className=" py-1 bg-green-800 mb-2 px-5 mt-7 rounded-lg text-white hover:bg-green-600 duration-500 ease-linear"
-                    onClick={() => handleVote(project.id)}
-                  >
-                    Vote
-                  </button>
+                  <div className="mt-8">
+                    {status === "unauthenticated" && (
+                      <Link
+                        className=" py-1 bg-green-800 mb-2 px-5 mt- rounded-lg text-white hover:bg-green-600 duration-500 ease-linear"
+                        // onClick={() => handleVote(project.id)}
+                        href="/login"
+                      >
+                        Vote
+                      </Link>
+                    )}
+                    {status === "authenticated" && (
+                      <button
+                        className=" py-1 bg-green-800 mb-2 px-5  rounded-lg text-white hover:bg-green-600 duration-500 ease-linear"
+                        onClick={() => handleVote(project.id)}
+                      >
+                        Vote
+                      </button>
+                    )}
+                  </div>
                 </tr>
               </tbody>
             ))}
