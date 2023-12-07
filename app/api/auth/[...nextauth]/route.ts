@@ -17,17 +17,16 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      // console.log("User", user);
-      // console.log("Token", token);
       if (user) {
         token.user = user;
+        if (user) token.role = user.role;
       }
       return token;
     },
     session({ session, token }) {
-      // console.log("Session", session);
       if ((token?.user as { id: string }).id) {
         session.user.id = (token.user as { id: string }).id;
+        session.user.role = token.role as string;
       }
       return session;
     },

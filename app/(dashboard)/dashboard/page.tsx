@@ -5,9 +5,17 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const AdminDashboard = () => {
+  const router = useRouter();
+  const session = useSession();
   const [projects, setProjects] = useState<any[]>([]);
+
+  if (session?.data?.user.role !== "ADMIN") {
+    router.push("/");
+  }
 
   const fetchProject = async () => {
     try {
