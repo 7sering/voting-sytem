@@ -30,9 +30,12 @@ const Navbar = () => {
               <li className="hover:text-green-500 transition-all ease-linear text-1xl">
                 <Link href="/contact">Contact</Link>
               </li>
-              <li className="hover:text-green-500 transition-all ease-linear text-1xl">
-                <Link href="/dashboard">Dashboard</Link>
-              </li>
+              {/* Only if user is admin show Dashboard */}
+              {status === "authenticated" && session.user.role == "ADMIN" ? (
+                <li className="hover:text-green-500 transition-all ease-linear text-1xl">
+                  <Link href="/dashboard">Dashboard</Link>
+                </li>
+              ) : null}
 
               {/* User Logged in & Logged out status */}
               {status === "authenticated" && (
