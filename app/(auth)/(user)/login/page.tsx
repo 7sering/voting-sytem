@@ -3,8 +3,10 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { AiFillGoogleCircle } from "react-icons/ai";
-
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface LoginForm {
   email: string;
@@ -13,6 +15,7 @@ interface LoginForm {
 }
 
 const LoginPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,8 +24,16 @@ const LoginPage = () => {
   } = useForm<LoginForm>();
 
   const onsubmit = (data: LoginForm) => {
-    console.log("form submitted successfully", data);
-    reset();
+    // console.log("form submitted successfully", data);
+    try {
+      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, data);
+      reset();
+      toast.success("Login Success");
+      // router.push("/");
+    } catch (error) {
+      console.error("Error posting projects:", error);
+      toast.error("Error posting projects");
+    }
   };
   return (
     <section>

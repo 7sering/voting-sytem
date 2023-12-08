@@ -1,7 +1,9 @@
 "use client";
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 interface LoginForm {
   name: string;
@@ -18,9 +20,25 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm<LoginForm>();
 
-  const onsubmit = (data: LoginForm) => {
-    console.log("form submitted successfully", data);
-    reset();
+  const onsubmit = async (data: LoginForm) => {
+    // console.log("form submitted successfully", data);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/register`,
+        data
+      );
+
+      reset();
+      const { message } = response.data;
+      toast.success(`${message}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        // TypeScript knows error is Error
+        toast.error(error.message);
+      } else {
+        console.log("Unexpected error", error);
+      }
+    }
   };
   return (
     <section>
